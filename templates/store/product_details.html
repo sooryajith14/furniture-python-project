@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<section style="height:500px; width:100%; ">
+    <div style="width:500px; height:500px; margin-left:50px; float:left;">
+        <img src="{{single_product.images.url}}" style="width:500px; height:500px;">
+    </div>
+    <div style="width:60%; height:500px;margin-left:30px; float:left;">
+        <div class="text-center">
+           <h2 style="color:#f7444e; padding:5px;"><b>{{single_product.product_name}}</b></h2>
+        </div>
+           <div style="width:80%; height:300px; margin-left:90px;">{{single_product.description}}<br>
+               <div style="margin-top:50px;"><b>Price - {{single_product.price}}</b></div>
+		      <div style="margin-left:90px; margin-top:50px;">
+              </div>
+               <h6><b>Choose wood</b></h6>
+		           <select name="color"  required>
+				       <option value="" disabled selected> Select</option>
+                       <option value=''> lihg;iyf</option>
+			       </select>
+              </div>
+         <div class="text-center">
+             {% if single_product.stock <= 0 %}
+             <h5> Out of stock</h5>
+             {% else %}
+        <button type="submit" style="width:200px; height:40px; background:#f7444e; border-radius:20px;">add cart</button>
+    {% endif %}
+         </div>
+    </div>
+
+</section>
+{% endblock %}
