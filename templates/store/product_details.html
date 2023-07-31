@@ -1,32 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<section style="height:500px; width:100%; ">
+<section style="height:500px; width:100%; " xmlns="http://www.w3.org/1999/html">
     <div style="width:500px; height:500px; margin-left:50px; float:left;">
         <img src="{{single_product.images.url}}" style="width:500px; height:500px;">
     </div>
-    <div style="width:60%; height:500px;margin-left:30px; float:left;">
+    <form action="{% url 'add_cart' single_product.id %}" method="post">
+        {% csrf_token %}
+     <div style="width:60%; height:500px;margin-left:30px; float:left;">
         <div class="text-center">
            <h2 style="color:#f7444e; padding:5px;"><b>{{single_product.product_name}}</b></h2>
         </div>
            <div style="width:80%; height:300px; margin-left:90px;">{{single_product.description}}<br>
-               <div style="margin-top:50px;"><b>Price - {{single_product.price}}</b></div>
-		      <div style="margin-left:90px; margin-top:50px;">
+               <div style="margin-top:40px;"><b>Price - {{single_product.price}}</b></div>
+		      <div style="margin-left:90px; margin-top:30px;">
               </div>
-               <h6><b>Choose wood</b></h6>
-		           <select name="color"  required>
-				       <option value="" disabled selected> Select</option>
-                       <option value=''> lihg;iyf</option>
+               <div style="float:left;">
+               <h6>Choose wood</h6>
+		           <select name="wood" class="form-control" required>
+                       <option value="" disabled selected> Select</option>
+                       {% for i in single_product.variation_set.woods %}
+                       <option value='{{ i.variation_value | lower }}'>{{ i.variation_value | capfirst }}</option>
+                       {% endfor %}
 			       </select>
+               </div>
+               <div style="float:left; margin-left:50px;">
+               <h6>Choose size</h6>
+		           <select name="size" class="form-control" required>
+                       <option value="" disabled selected> Select</option>
+                       {% for i in single_product.variation_set.sizes %}
+                       <option value='{{ i.variation_value | lower }}'>{{ i.variation_value | capfirst }}</option>
+                       {% endfor %}
+			       </select>
+               </div>
               </div>
          <div class="text-center">
              {% if single_product.stock <= 0 %}
              <h5> Out of stock</h5>
              {% else %}
-        <button type="submit" style="width:200px; height:40px; background:#f7444e; border-radius:20px;">add cart</button>
-    {% endif %}
+             <div style="width:400px; margin-left:250px;margin-top:30px;" >
+              <button type="submit"  class="btn btn-dark btn-block btn-lg"> Add to Cart </button></div>
+             {% endif %}
          </div>
-    </div>
-
+     </div>
+    </form>
 </section>
 {% endblock %}
