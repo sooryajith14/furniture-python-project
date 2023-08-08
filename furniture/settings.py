@@ -67,7 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'furn_app.context_processors.menu_links'
+                'furn_app.context_processors.menu_links',
+                'cart.context_processors.counter',
             ],
         },
     },
@@ -131,3 +132,10 @@ STATIC_ROOT=os.path.join(os.path.dirname(BASE_DIR),'static_cdn');
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
